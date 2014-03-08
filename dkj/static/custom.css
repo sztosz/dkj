@@ -1,0 +1,21 @@
+/* Custom page CSS
+-------------------------------------------------- */
+
+.detail_container {
+    background-color: #FFF;
+    padding: 10px;
+    border: 1px solid #DDD;
+    border-top-color: transparent;
+    border-radius: 0 0 4px 4px;
+}
+.well {
+    margin-top: 20px;
+}
+.well-white {
+    background-color: white;
+}
+.document dt
+{
+    white-space: normal;
+    width: 175px;
+}

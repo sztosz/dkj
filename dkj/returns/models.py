@@ -22,7 +22,7 @@ class Return(models.Model):
     driver_name = models.CharField(max_length=50, verbose_name='Nazwisko kierowcy', blank=True)
     car_plates = models.CharField(max_length=10, verbose_name='Nr rejestracyjny', blank=True)
     start_date = models.DateTimeField(auto_now_add=True, verbose_name='Czas Rozpoczęcia')
-    completed = models.BooleanField(verbose_name='Zakończona')
+    completed = models.BooleanField(verbose_name='Zakończona', default=False)
     user = models.ForeignKey(User, verbose_name='Użytkownik')
 
     def __str__(self):

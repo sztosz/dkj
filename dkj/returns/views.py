@@ -7,18 +7,17 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.core.urlresolvers import reverse
 
 from dkj.common import LoggedInMixin
-from . import models
+from . import models, forms
 
 
 class Returns(LoggedInMixin, ListView):
     queryset = models.Return.objects.order_by('-start_date')
-    template_name = None  # TODO template for Returns
+    context_object_name = 'returns'
 
 
 class CreateReturn(LoggedInMixin, CreateView):
     model = models.Return
-    template_name = None  # TODO Create AddReturn template
-    form_class = None  # TODO Create AddReturn template
+    form_class = forms.CreateReturnForm
 
     def get_success_url(self):
         return reverse('returns:detail', args=(self.object.pk,))

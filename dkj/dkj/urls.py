@@ -5,6 +5,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+from .views import *
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'dkj.views.home', name='home'),
@@ -12,4 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^returns/', include('returns.urls', namespace='returns')),
+    url(r'^commodities/', include('commodities.urls', namespace='commodities')),
+
+    url(r'^$', Index.as_view(), name='index')
 )
