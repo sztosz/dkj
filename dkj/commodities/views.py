@@ -39,6 +39,8 @@ class ImportBatch(LoggedInMixin, FormView):
     def get_success_url(self):
         return reverse('index')
 
+    # TODO Add single commodity EAN verification
+
 
 class CommodityParser():
     def __init__(self, file, newline='', delimiter=';', quotechar='"'):

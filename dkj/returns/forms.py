@@ -10,4 +10,4 @@ from . import models
 class CreateReturnForm(forms.ModelForm):
     class Meta:
         model = models.Return
-        exclude = ('user', 'completed')
+        exclude = ('user', 'completed',)

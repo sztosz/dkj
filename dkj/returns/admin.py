@@ -15,7 +15,7 @@ class CommercialReturnCarrierAdmin(admin.ModelAdmin):
 
 
 class CommercialReturnAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'carrier', 'carrier_comment', 'completed', 'driver_name', 'user',)
+    list_display = ('__str__', 'carrier', 'comment', 'completed', 'driver_name', 'user',)
 
 
 class WaybillAdmin(admin.ModelAdmin):

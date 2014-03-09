@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="page-header">
+    <p class="h1">
+      <small>Zwrot nr</small> {{ return.pk }}
+      <small>nr dokumentu</small> {{ return.return_number }}
+    </p>
+  </div>
+
+  <div class="well">
+    <dl class="dl-horizontal">
+      <dt>Stworzył</dt>
+      <dd class="clearfix text-primary">{{ return.user }}</dd>
+      <dt>Przewoźnik</dt>
+      <dd class="clearfix text-primary">{{ return.carrier }}</dd>
+      <dt>Kierowca</dt>
+      <dd class="clearfix text-primary">{{ return.driver_name }}</dd>
+      <dt>Data zarejestrowania</dt>
+      <dd class="clearfix text-primary">{{ return.start_date }}</dd>
+      <dt>Zakończony</dt>
+      <dd class="clearfix text-primary">{% if return.completed %}
+        <span class="glyphicon glyphicon-ok"></span>
+      {% else %}
+        <span class="glyphicon glyphicon-remove"></span>
+      {% endif %}</dd>
+      <dt>Komentarz</dt>
+      <dd class="clearfix text-primary">{% if return.comment %}{{ return.comment }}{% endif %}</dd>
+      <dt>Rejestracja</dt>
+      <dd class="clearfix text-primary">{% if return.car_plates %}{{ return.car_plates }}{% endif %}</dd>
+    </dl>
+  </div>
+  <div class="well">
+    <a href="#" class="btn btn-primary btn-lg" role="button">Dodaj List przewozowy</a>
+  </div>
+
+{% endblock %}

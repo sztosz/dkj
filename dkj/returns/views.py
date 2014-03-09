@@ -19,6 +19,13 @@ class CreateReturn(LoggedInMixin, CreateView):
     model = models.Return
     form_class = forms.CreateReturnForm
 
+    def form_valid(self, form):
+        print('Im here')
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('returns:detail', args=(self.object.pk,))
 

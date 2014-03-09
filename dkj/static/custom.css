@@ -8,9 +8,9 @@
     border-top-color: transparent;
     border-radius: 0 0 4px 4px;
 }
-.well {
-    margin-top: 20px;
-}
+/*.well {*/
+    /*margin-top: 20px;*/
+/*}*/
 .well-white {
     background-color: white;
 }
