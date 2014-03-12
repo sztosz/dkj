@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Dodaj List przewozowy</h1>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="well">
+      <form action="" method="post" class="form-horizontal">
+      {% csrf_token %}
+        <fieldset>
+          <legend>List przewozowy</legend>
+          <div class="form-group {% if form.number.errors %}has-error{% endif %}">
+            <label for="{{ form.number.id_for_label }}" class="col-lg-4 control-label">{{ form.number.label }}</label>
+            <div class="col-lg-8">
+              <input type="text" maxlength="{{ form.number.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}"
+                     {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
+{#              {% if form.comment.errors %}#}
+{#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
+{#              {% endif %}#}
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+              <button type="submit" class="btn btn-primary">Dodaj</button>
+              <button class="btn btn-default">Anuluj</button>
+            </div>
+            </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+

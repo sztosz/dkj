@@ -1,11 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Created on 2013-10-11
-#
 # @author: Bartosz Nowak sztosz@gmail.com
-#
-# This file is licensed GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 
 from django.conf.urls import patterns, url
 
@@ -16,8 +12,10 @@ urlpatterns = patterns(
     url(r'^$', Returns.as_view(), name='list'),
     url(r'^create/$', CreateReturn.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', Details.as_view(), name='detail'),
-    url(r'^waybill/create$', Details.as_view(), name='waybill_create'),
-    url(r'^waybill/(?P<pk>\d+)/$', Details.as_view(), name='waybill_detail'),
+    url(r'^(?P<return_pk>\d+)/waybill/create$', CreateWaybill.as_view(), name='waybill_create'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create$', CreateDocument.as_view(),
+        name='document_create'),
+    # url(r'^waybill/(?P<pk>\d+)/$', Details.as_view(), name='waybill_detail'),
 
     # url(r'^print/(?P<pk>\d+)/$', ReturnPrint.as_view(),
     #     name='print'),

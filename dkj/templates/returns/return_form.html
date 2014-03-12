@@ -13,10 +13,10 @@
           <legend>Zwrot</legend>
           <div class="form-group">
             {% if form.carrier.errors %}
-              <div class="alert alert-danger"><strong>Musisz wybrać rodzaj</strong></div>
+              <div class="col-lg-10 col-lg-offset-1 alert alert-danger"><strong>Musisz wybrać rodzaj</strong></div>
             {% endif %}
-            <label for="{{ form.carrier.id_for_label }}" class="col-lg-2 control-label">{{ form.carrier.label }}</label>
-            <div class="col-lg-10">
+            <label for="{{ form.carrier.id_for_label }}" class="col-lg-4 control-label">{{ form.carrier.label }}</label>
+            <div class="col-lg-8">
               <select class="form-control" id="{{ form.carrier.id_for_label }}" name="{{ form.carrier.html_name }}">
                 {% for id, name in form.carrier.field.choices %}
                   <option value="{{ id }}">{{ name }}</option>
@@ -25,8 +25,8 @@
             </div>
           </div>
           <div class="form-group {% if form.comment.errors %}has-error{% endif %}">
-            <label for="{{ form.comment.id_for_label }}" class="col-lg-2 control-label">{{ form.comment.label }}</label>
-            <div class="col-lg-10">
+            <label for="{{ form.comment.id_for_label }}" class="col-lg-4 control-label">{{ form.comment.label }}</label>
+            <div class="col-lg-8">
               <input type="text" maxlength="{{ form.comment.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.comment.html_name }}" placeholder="{{ form.comment.field.help_text }}"
                      {% if form.comment.value %}value="{{ form.comment.value }}"{% endif %}>
 {#              {% if form.comment.errors %}#}
@@ -35,8 +35,8 @@
             </div>
           </div>
           <div class="form-group {% if form.driver_name.errors %}has-error{% endif %}">
-            <label for="{{ form.driver_name.id_for_label }}" class="col-lg-2 control-label">{{ form.driver_name.label }}</label>
-            <div class="col-lg-10">
+            <label for="{{ form.driver_name.id_for_label }}" class="col-lg-4 control-label">{{ form.driver_name.label }}</label>
+            <div class="col-lg-8">
               <input type="text" maxlength="{{ form.driver_name.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.driver_name.html_name }}" placeholder="{{ form.driver_name.field.help_text }}"
                      {% if form.driver_name.value %}value="{{ form.driver_name.value }}"{% endif %}>
 {#              {% if form.carrier_comment.errors %}#}
@@ -45,8 +45,8 @@
             </div>
           </div>
           <div class="form-group {% if form.car_plates.errors %}has-error{% endif %}">
-            <label for="{{ form.car_plates.id_for_label }}" class="col-lg-2 control-label">{{ form.car_plates.label }}</label>
-            <div class="col-lg-10">
+            <label for="{{ form.car_plates.id_for_label }}" class="col-lg-4 control-label">{{ form.car_plates.label }}</label>
+            <div class="col-lg-8">
               <input type="text" maxlength="{{ form.car_plates.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.car_plates.html_name }}" placeholder="{{ form.car_plates.field.help_text }}"
                      {% if form.car_plates.value %}value="{{ form.car_plates.value }}"{% endif %}/>
 {#              {% if form.car_plates.errors %}#}
@@ -55,9 +55,9 @@
             </div>
           </div>
           <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-2">
-              <button class="btn btn-default">Anuluj</button>
+            <div class="col-lg-8 col-lg-offset-4">
               <button type="submit" class="btn btn-primary">Dodaj</button>
+              <button class="btn btn-default">Anuluj</button>
             </div>
             </div>
         </fieldset>
