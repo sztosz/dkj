@@ -3,10 +3,12 @@
 #
 # @author: Bartosz Nowak sztosz@gmail.com
 
+import csv
+
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from dkj.common import LoggedInMixin
 from . import models, forms
@@ -33,23 +35,25 @@ class CreateReturn(LoggedInMixin, CreateView):
 
 class Details(LoggedInMixin, DetailView):
     model = models.Return
-    template_name = None  # TODO template for Returns
     context_object_name = 'return'
 
     def get_context_data(self, **kwargs):
-        context = super(Details, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         waybills = models.Waybill.objects.filter(return_id=self.object)
         for waybill in waybills:
-            waybill.documents = models.Document.objects.filter(waybill=waybill.pk)
+            documents = models.Document.objects.filter(waybill=waybill.pk)
+            for document in documents:
+                document.commodities = models.CommodityInDocument.objects.filter(document=document.pk)
+            waybill.documents = documents
         context['waybills'] = waybills
+        context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)  # TODO simplify this!
         # context['documents'] = models.Document.objects.filter(return_id=self.object)
-        context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
+        # context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
         return context
 
 
 class CreateWaybill(LoggedInMixin, CreateView):
     model = models.Waybill
-    template_name = None  # TODO Create AddReturn template
     form_class = forms.CreateWaybillForm
 
     def form_valid(self, form):
@@ -61,21 +65,9 @@ class CreateWaybill(LoggedInMixin, CreateView):
     def get_success_url(self):
         return reverse('returns:detail', args=(self.kwargs['return_pk'],))
 
-# class Waybill(LoggedInMixin, DetailView):
-#     model = models.Waybill
-#     template_name = None  # TODO template for Returns
-#     context_object_name = 'waybill'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(Waybill, self).get_context_data(**kwargs)
-#         context['documents'] = models.Document.objects.filter(waybill=self.object)
-#         context['commodities'] = models.CommodityInDocument.objects.filter(waybill=self.object)
-#         return context
-
 
 class CreateDocument(LoggedInMixin, CreateView):
     model = models.Document
-    template_name = None  # TODO Create AddReturn template
     form_class = forms.CreateDocumentForm
 
     def form_valid(self, form):
@@ -91,15 +83,45 @@ class CreateDocument(LoggedInMixin, CreateView):
         return reverse('returns:detail', args=(self.kwargs['return_pk'],))
 
 
-# class Document(LoggedInMixin, DetailView):
-#     model = models.Waybill
-#     template_name = None  # TODO template for Returns
-#     context_object_name = 'document'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(Document, self).get_context_data(**kwargs)
-#         context['commodities'] = models.CommodityInDocument.objects.filter(document=self.object)
-#         return context
+class AddCommodityTroughEAN(LoggedInMixin, CreateView):
+    model = models.CommodityInDocument
+    template_name = None
+    form_class = forms.AddCommodityTroughEANForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.return_id = get_object_or_404(models.Return, pk=self.kwargs['return_pk'])
+        obj.waybill = get_object_or_404(models.Waybill, pk=self.kwargs['waybill_pk'])
+        obj.document = get_object_or_404(models.Document, pk=self.kwargs['document_pk'])
+        obj.commodity = get_object_or_404(models.Commodity, ean=form.cleaned_data['ean'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('returns:detail', args=(self.kwargs['return_pk'],))
 
 
+class CsvExport(Details):
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data()
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="commercial_return.csv.txt"'
+
+        writer = csv.writer(response, delimiter=';')
+        try:
+            writer.writerow(['Numer: {}'.format(context['return'].return_number())])
+            writer.writerow(['Przewoźnik: {}'.format(context['return'].carrier.name)])
+            writer.writerow(['Nazwisko kierowcy: {}'.format(context['return'].driver_name)])
+            writer.writerow(['Nr rejestracyjny samochodu: {}'.format(context['return'].car_plates)])
+            writer.writerow(['Komentarz: {}'.format(context['return'].comment   )])
+            writer.writerow(['Data zwrotu: {}'.format(context['return'].start_date)])
+            writer.writerow(['Kontroler: {} {}'.format(context['return'].user.first_name,
+                                                       context['return'].user.last_name)])
+            writer.writerow([''])
+            writer.writerow(['Ilość', 'Towar', 'ean', 'List przewozowy', 'Dokument'])
+            for row in context['commodities']:
+                writer.writerow([row.amount, row.commodity, row.commodity.ean, row.waybill, row.document])
+        except KeyError:
+            writer.writerow(['Nastąpił błąd parsowania danych: brak towarów w liście'])
+        return response

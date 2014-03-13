@@ -36,7 +36,8 @@
 
   <div class="panel panel-primary">
     <div class="panel-body">
-      <a href="{% url 'returns:waybill_create' return.pk %}" class="btn btn-primary" role="button">Dodaj List przewozowy</a>
+      <a href="{% url 'returns:waybill_create' return.pk %}" class="btn btn-primary btn-sm" role="button">Dodaj List przewozowy</a>
+      <a href="{% url 'returns:csv' return.pk %}" class="btn btn-primary btn-sm pull-right" role="button">Eksport do CSV</a>
     </div>
   </div>
 
@@ -45,17 +46,22 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         {{ waybill.number }}
-        <a href="{% url 'returns:document_create' return.pk waybill.pk %}" class="btn btn-success btn-sm" role="button">Dodaj dokument</a>
+        <a href="{% url 'returns:document_create' return.pk waybill.pk %}" class="btn btn-primary btn-xs" role="button">Dodaj dokument</a>
       </h3>
     </div>
     <div class="panel-body">
       {% for document in waybill.documents %}
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ document.number }}</h3>
+          <h3 class="panel-title">
+            {{ document.number }}
+            <a href="{% url 'returns:commodity_add' return.pk waybill.pk document.pk %}" class="btn btn-success btn-xs" role="button">Dodaj Towar</a>
+          </h3>
         </div>
         <div class="panel-body">
-          Panel content
+          {% for commodity in document.commodities %}
+            <p class="text-success"><span class="text-primary">{{ commodity.amount }}</span> {{ commodity }}</p>
+          {% endfor %}
         </div>
       </div>
       {% endfor %}

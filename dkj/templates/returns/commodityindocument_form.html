@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Dodaj Towar</h1>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="well">
+      <form action="" method="post" class="form-horizontal">
+      {% csrf_token %}
+        <fieldset>
+          <legend>Towar po EAN'ie</legend>
+          <div class="form-group {% if form.ean.errors %}has-error{% endif %}">
+            {% for error in form.ean.errors %}
+              <div class="col-lg-10 col-lg-offset-1 alert alert-danger"><strong>{{ error }}</strong></div>
+            {% endfor %}
+            <label for="{{ form.ean.id_for_label }}" class="col-lg-4 control-label">{{ form.ean.label }}</label>
+            <div class="col-lg-8">
+              <input type="text" maxlength="{{ form.ean.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.ean.html_name }}" placeholder="{{ form.ean.field.help_text }}"
+                     {% if form.ean.value %}value="{{ form.ean.value }}"{% endif %}>
+{#              {% if form.comment.errors %}#}
+{#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
+{#              {% endif %}#}
+            </div>
+          </div>
+          <div class="form-group {% if form.amount.errors %}has-error{% endif %}">
+            <label for="{{ form.amount.id_for_label }}" class="col-lg-4 control-label">{{ form.amount.label }}</label>
+            <div class="col-lg-8">
+              <input type="text" maxlength="{{ form.amount.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.amount.html_name }}" placeholder="{{ form.amount.field.help_text }}"
+                     {% if form.amount.value %}value="{{ form.amount.value }}"{% endif %}>
+{#              {% if form.comment.errors %}#}
+{#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
+{#              {% endif %}#}
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-8 col-lg-offset-4">
+              <button type="submit" class="btn btn-primary">Dodaj</button>
+              <button class="btn btn-default">Anuluj</button>
+            </div>
+            </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+

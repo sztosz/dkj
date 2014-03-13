@@ -1,0 +1,28 @@
+/*# -*- coding: utf-8 -*-                                                       */
+/*#                                                                             */
+/*# Created on 2013-10-11                                                       */
+/*#                                                                             */
+/*# @author: Bartosz Nowak sztosz@gmail.com                                     */
+/*#                                                                             */
+/*# This file is licensed GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007    */
+
+body {
+    background-color: whitesmoke;
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-family: sans-serif;
+
+}
+#main_container {
+    width: 210px;
+    margin: 0;
+    padding: 2px;
+    background-color: lightgrey;
+}
+#header {
+    background-color: darkseagreen;
+}

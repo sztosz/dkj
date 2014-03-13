@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <input type="button" value="DODAJ ZWROT" onClick="window.location.href='{% url 'S:damage_report' %}'">
+    <hr>
+    {% for return in returns %}
+      <input type="button" value="{{ return.pk }}" onClick="window.location.href='{% url 'S:damage_report' %}'">
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -60,7 +60,7 @@ class CommodityInDocument(models.Model):
     amount = models.IntegerField(verbose_name='Ilość', help_text='Ilość')
 
     def __str__(self):
-        return str(self.id)
+        return str(self.commodity)
 
     # def document_name(self):
     #     return 'Bezdokumentowy' if self.unknown_origin else self.document

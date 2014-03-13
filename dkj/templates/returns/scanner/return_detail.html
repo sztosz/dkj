@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1><small>Zwrot nr</small> {{ return.pk }}</h1>
+  <span>Data zarejestrowania: {{ return.start_date }}</span>
+  <a href="{% url 'returns:waybill_create' return.pk %}" class="btn btn-primary btn-sm" role="button">Dodaj List przewozowy</a>
+
+  {% for waybill in waybills %}
+    <a href="{% url 'returns:document_create' return.pk waybill.pk %}" class="btn btn-primary btn-xs" role="button">{{ waybill.number }}</a>
+  {% endfor %}
+
+{% endblock %}

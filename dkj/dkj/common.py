@@ -33,7 +33,7 @@ class EanValidator():
 
     def ean_check(self, ean):
         length = len(ean)
-        ean = str(ean)
+        ean = str(ean).strip(   )
         try:
             int(ean)
         except ValueError:

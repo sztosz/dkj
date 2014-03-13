@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Dodaj Zwrot</h1>
+    <form action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+      <fieldset>
+        {% if form.carrier.errors %}
+          <span><strong>Musisz wybrać rodzaj</strong></span>
+        {% endif %}
+        <label for="{{ form.carrier.id_for_label }}">{{ form.carrier.label }}</label>
+        <select id="{{ form.carrier.id_for_label }}" name="{{ form.carrier.html_name }}">
+          {% for id, name in form.carrier.field.choices %}
+            <option value="{{ id }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+        <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
+        <input type="text" maxlength="{{ form.comment.field.max_length }}" id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}" {% if form.comment.value %}value="{{ form.comment.value }}"{% endif %}>
+        {% for error in  form.driver_name.errors %}{{ error }}{% endfor %}
+        <label for="{{ form.driver_name.id_for_label }}">{{ form.driver_name.label }}</label>
+        <input type="text" maxlength="{{ form.driver_name.field.max_length }}" id="{{ form.driver_name.id_for_label }}" name="{{ form.driver_name.html_name }}" {% if form.driver_name.value %}value="{{ form.driver_name.value }}"{% endif %}>
+        <label for="{{ form.car_plates.id_for_label }}">{{ form.car_plates.label }}</label>
+        <input type="text" maxlength="{{ form.car_plates.field.max_length }}" id="{{ form.car_plates.id_for_label }}" name="{{ form.car_plates.html_name }}" {% if form.car_plates.value %}value="{{ form.car_plates.value }}"{% endif %}/>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
+      </fieldset>
+    </form>
+  </div>
+{% endblock %}
+
+
