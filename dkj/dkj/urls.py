@@ -13,8 +13,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^returns/', include('returns.urls', namespace='returns')),
-    url(r'^commodities/', include('commodities.urls', namespace='commodities')),
+    url(r'^returns/', include('returns.urls', namespace='Returns')),
+    url(r'^returns/S/', include('returns.scanner_urls', namespace='SReturns')),
+    url(r'^commodities/', include('commodities.urls', namespace='Commodities')),
 
     url(r'^$', Index.as_view(), name='index')
 )

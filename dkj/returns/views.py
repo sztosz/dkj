@@ -30,7 +30,7 @@ class CreateReturn(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('returns:detail', args=(self.object.pk,))
+        return reverse('Returns:detail', args=(self.object.pk,))
 
 
 class Details(LoggedInMixin, DetailView):
@@ -63,7 +63,7 @@ class CreateWaybill(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
 
 
 class CreateDocument(LoggedInMixin, CreateView):
@@ -80,7 +80,7 @@ class CreateDocument(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
 
 
 class AddCommodityTroughEAN(LoggedInMixin, CreateView):
@@ -97,7 +97,7 @@ class AddCommodityTroughEAN(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
 
 
 class CsvExport(Details):
