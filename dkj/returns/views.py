@@ -14,7 +14,7 @@ from dkj.common import LoggedInMixin
 from . import models, forms
 
 
-class Returns(LoggedInMixin, ListView):
+class ReturnsList(LoggedInMixin, ListView):
     queryset = models.Return.objects.order_by('-start_date')
     context_object_name = 'returns'
 
@@ -30,10 +30,10 @@ class CreateReturn(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('Returns:detail', args=(self.object.pk,))
+        return reverse('Returns:return', args=(self.object.pk,))
 
 
-class Details(LoggedInMixin, DetailView):
+class Return(LoggedInMixin, DetailView):
     model = models.Return
     context_object_name = 'return'
 
@@ -63,7 +63,7 @@ class CreateWaybill(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:return', args=(self.kwargs['return_pk'],))
 
 
 class CreateDocument(LoggedInMixin, CreateView):
@@ -80,7 +80,7 @@ class CreateDocument(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:return', args=(self.kwargs['return_pk'],))
 
 
 class AddCommodityTroughEAN(LoggedInMixin, CreateView):
@@ -97,10 +97,10 @@ class AddCommodityTroughEAN(LoggedInMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('Returns:detail', args=(self.kwargs['return_pk'],))
+        return reverse('Returns:return', args=(self.kwargs['return_pk'],))
 
 
-class CsvExport(Details):
+class CsvExport(Return):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

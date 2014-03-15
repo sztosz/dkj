@@ -9,13 +9,13 @@ from .views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^$', SReturns.as_view(), name='list'),
+    url(r'^$', SReturnsList.as_view(), name='list'),
     url(r'^create/$', SCreateReturn.as_view(), name='create'),
-    url(r'^(?P<pk>\d+)/$', SDetails.as_view(), name='detail'),
-    # url(r'^(?P<return_pk>\d+)/waybill/create$', CreateWaybill.as_view(), name='waybill_create'),
-    # url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create$', CreateDocument.as_view(),
-    #     name='document_create'),
-    # url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/(?P<document_pk>\d+)/commodity/add$',
-    #     AddCommodityTroughEAN.as_view(), name='commodity_add'),
-    # url(r'^(?P<pk>\d+)/csv$', CsvExport.as_view(), name='csv'),
-    )
+    url(r'^(?P<pk>\d+)/$', SReturn.as_view(), name='return'),
+    url(r'^(?P<return_pk>\d+)/waybill/create/$', SCreateWaybill.as_view(), name='waybill_create'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/$', SWaybill.as_view(), name='waybill'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create/$',
+        SCreateDocument.as_view(), name='document_create'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/(?P<document_pk>\d+)/$',
+        SDocument.as_view(), name='document'),
+)

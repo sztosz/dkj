@@ -5,7 +5,7 @@
     <input type="button" value="DODAJ&#13;&#10;ZWROT" onClick="window.location.href='{% url 'Returns:SReturns:create' %}'">
     <hr>
     {% for return in returns %}
-      <input type="button" value="ZWROT {{ return.pk }}&#13;&#10;{{ return.start_date }}" onClick="window.location.href='{% url 'Returns:SReturns:detail' return.pk %}'">
+      <input type="button" value="ZWROT {{ return.pk }}&#13;&#10;{{ return.start_date }}" onClick="window.location.href='{% url 'Returns:SReturns:return' return.pk %}'">
       <br/>
     {% endfor %}
   </div>

@@ -1,0 +1,16 @@
+{% extends 'scanner_base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="">
+      <strong>Zwrot nr {{ return.pk }}</strong><br />
+      <span>Z dnia:<br />{{ return.start_date }}</span><br />
+      <input type="button" value="DODAJ&#13;&#10;LIST" onClick="window.location.href='{% url 'Returns:SReturns:waybill_create' return.pk %}'">
+    </div>
+
+    {% for waybill in waybills %}
+      <input type="button" value="{{ waybill }}" onClick="window.location.href='{% url 'Returns:SReturns:waybill' return.pk waybill.pk %}'"><br/>
+    {% endfor %}
+  </div>
+
+{% endblock %}

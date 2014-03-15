@@ -2,10 +2,10 @@
 
 {% block content %}
   <div class="container">
-    <h1>Dodaj Zwrot</h1>
-    <form action="" method="post" class="form-horizontal">
+    <form action="" method="post">
     {% csrf_token %}
       <fieldset>
+        <legend><strong>Dodaj Zwrot</strong></legend>
         {% if form.carrier.errors %}
           <span><strong>Musisz wybrać rodzaj</strong></span><br/>
         {% endif %}
@@ -22,7 +22,7 @@
         <input type="text" maxlength="{{ form.driver_name.field.max_length }}" id="{{ form.driver_name.id_for_label }}" name="{{ form.driver_name.html_name }}" {% if form.driver_name.value %}value="{{ form.driver_name.value }}"{% endif %}><br/>
         <label for="{{ form.car_plates.id_for_label }}">{{ form.car_plates.label }}</label><br/>
         <input type="text" maxlength="{{ form.car_plates.field.max_length }}" id="{{ form.car_plates.id_for_label }}" name="{{ form.car_plates.html_name }}" {% if form.car_plates.value %}value="{{ form.car_plates.value }}"{% endif %}/><br/>
-        <button type="submit" class="btn btn-primary">Dodaj</button>
+        <button type="submit">Dodaj</button>
       </fieldset>
     </form>
   </div>

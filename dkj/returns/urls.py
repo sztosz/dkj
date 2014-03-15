@@ -9,13 +9,13 @@ from .views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^$', Returns.as_view(), name='list'),
+    url(r'^$', ReturnsList.as_view(), name='list'),
     url(r'^S/', include('returns.scanner.urls', namespace='SReturns')),
     url(r'^create/$', CreateReturn.as_view(), name='create'),
-    url(r'^(?P<pk>\d+)/$', Details.as_view(), name='detail'),
+    url(r'^(?P<pk>\d+)/$', Return.as_view(), name='return'),
     url(r'^(?P<return_pk>\d+)/waybill/create$', CreateWaybill.as_view(), name='waybill_create'),
-    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create$', CreateDocument.as_view(),
-        name='document_create'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create$',
+        CreateDocument.as_view(), name='document_create'),
     url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/(?P<document_pk>\d+)/commodity/add$',
         AddCommodityTroughEAN.as_view(), name='commodity_add'),
     url(r'^(?P<pk>\d+)/csv$', CsvExport.as_view(), name='csv'),

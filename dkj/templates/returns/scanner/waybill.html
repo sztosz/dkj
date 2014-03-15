@@ -1,0 +1,16 @@
+{% extends 'scanner_base.html' %}
+
+{% block content %}
+  <div class="container">
+    <strong>Zwrot nr {{ return.pk }}</strong><br />
+    <span>Z dnia:<br />{{ return.start_date }}</span><br />
+    <strong>LP nr {{ waybill.number }}</strong><br />
+    <input type="button" value="DODAJ&#13;&#10;DOKUMENT" onClick="window.location.href='{% url 'Returns:SReturns:document_create' return.pk waybill.pk%}'"><br/>
+
+    {% for document in documents %}
+      <input type="button" value="{{ document }}" onClick="window.location.href='{% url 'Returns:SReturns:document' return.pk waybill.pk document.pk %}'"><br/>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

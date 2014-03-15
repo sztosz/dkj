@@ -21,7 +21,7 @@
     <tbody data-link="row" class="rowlink">
       {% for return in returns %}
       <tr>
-        <td><a href="{% url 'Returns:detail' return.pk %}">{{ return.pk }}</a></td>
+        <td><a href="{% url 'Returns:return' return.pk %}">{{ return.pk }}</a></td>
         <td>{{ return.carrier }}</td>
         <td>{{ return.driver_name }}</td>
         <td>{{ return.car_plates }}</td>
