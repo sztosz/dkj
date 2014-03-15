@@ -3,13 +3,14 @@
 #
 # @author: Bartosz Nowak sztosz@gmail.com
 
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from .views import *
 
 urlpatterns = patterns(
     '',
     url(r'^$', Returns.as_view(), name='list'),
+    url(r'^S/', include('returns.scanner.urls', namespace='SReturns')),
     url(r'^create/$', CreateReturn.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', Details.as_view(), name='detail'),
     url(r'^(?P<return_pk>\d+)/waybill/create$', CreateWaybill.as_view(), name='waybill_create'),

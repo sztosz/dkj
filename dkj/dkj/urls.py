@@ -14,7 +14,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^returns/', include('returns.urls', namespace='Returns')),
-    url(r'^returns/S/', include('returns.scanner_urls', namespace='SReturns')),
     url(r'^commodities/', include('commodities.urls', namespace='Commodities')),
 
     url(r'^$', Index.as_view(), name='index')

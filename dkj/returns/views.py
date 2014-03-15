@@ -114,7 +114,7 @@ class CsvExport(Details):
             writer.writerow(['Przewoźnik: {}'.format(context['return'].carrier.name)])
             writer.writerow(['Nazwisko kierowcy: {}'.format(context['return'].driver_name)])
             writer.writerow(['Nr rejestracyjny samochodu: {}'.format(context['return'].car_plates)])
-            writer.writerow(['Komentarz: {}'.format(context['return'].comment   )])
+            writer.writerow(['Komentarz: {}'.format(context['return'].comment)])
             writer.writerow(['Data zwrotu: {}'.format(context['return'].start_date)])
             writer.writerow(['Kontroler: {} {}'.format(context['return'].user.first_name,
                                                        context['return'].user.last_name)])
