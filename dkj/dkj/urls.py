@@ -13,8 +13,13 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^returns/', include('returns.urls', namespace='returns')),
-    url(r'^commodities/', include('commodities.urls', namespace='commodities')),
+    url(r'^returns/', include('returns.urls', namespace='Returns')),
+    url(r'^commodities/', include('commodities.urls', namespace='Commodities')),
 
-    url(r'^$', Index.as_view(), name='index')
+    url(r'^$', Index.as_view(), name='index'),
+
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/login.html'},
+        name='login'),
+    url(r'^Slogin/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/Slogin.html'},
+        name='Slogin'),
 )

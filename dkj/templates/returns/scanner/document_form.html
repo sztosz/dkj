@@ -1,0 +1,17 @@
+{% extends "scanner_base.html" %}
+
+{% block content %}
+  <div class="container">
+    <form action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+      <fieldset>
+        <legend>Dokument</legend>
+        <label for="{{ form.number.id_for_label }}">{{ form.number.label }}</label><br/>
+        <input type="text" maxlength="{{ form.number.field.max_length }}" id="{{ form.number.id_for_label }}" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}" {% if form.number.value %}value="{{ form.number.value }}"{% endif %}><br/>
+        <button type="submit">Dodaj</button>
+      </fieldset>
+    </form>
+  </div>
+{% endblock %}
+
+

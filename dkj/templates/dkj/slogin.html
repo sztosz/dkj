@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LOGIN REQUIRED</title>
+</head>
+<body>
+  <div class='login_box'>
+    {% if form.errors %}
+      <strong>Podany login i hasło się nie zgadzają, spróbuj ponownie.</strong><br/>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form.username.label_tag }}<br/>
+      {{ form.username }}<br/>
+      {{ form.password.label_tag }}<br/>
+      {{ form.password }}<br/>
+      <input id="id_login_submit" type="submit" value="Zaloguj" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  </div>
+</body>
+</html>

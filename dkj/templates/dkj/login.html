@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+
+    <form class="form-signin" action="{% url 'login' %}" method="post" role="form">
+      {% csrf_token %}
+
+      <h2 class="form-signin-heading">Zaloguj się</h2>
+      {% if form.errors %}
+        <div class="alert alert-dismissable alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <p><strong>Podane hasło lub login są nieprawidłowe!</strong></p>
+        </div>
+      {% endif %}
+
+      <input type="text" class="form-control" id="id_username" name="username" placeholder="Login" required autofocus>
+      <input type="password" class="form-control" id="id_password" name="password" placeholder="Hasło" required>
+      <button class="btn btn-lg btn-success btn-block" type="submit">Zaloguj</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+  </div> <!-- /container -->
+
+{% endblock %}

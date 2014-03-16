@@ -36,8 +36,8 @@
 
   <div class="panel panel-primary">
     <div class="panel-body">
-      <a href="{% url 'returns:waybill_create' return.pk %}" class="btn btn-primary btn-sm" role="button">Dodaj List przewozowy</a>
-      <a href="{% url 'returns:csv' return.pk %}" class="btn btn-primary btn-sm pull-right" role="button">Eksport do CSV</a>
+      <a href="{% url 'Returns:waybill_create' return.pk %}" class="btn btn-primary btn-sm" role="button">Dodaj List przewozowy</a>
+      <a href="{% url 'Returns:csv' return.pk %}" class="btn btn-primary btn-sm pull-right" role="button">Eksport do CSV</a>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         {{ waybill.number }}
-        <a href="{% url 'returns:document_create' return.pk waybill.pk %}" class="btn btn-primary btn-xs" role="button">Dodaj dokument</a>
+        <a href="{% url 'Returns:document_create' return.pk waybill.pk %}" class="btn btn-primary btn-xs" role="button">Dodaj dokument</a>
       </h3>
     </div>
     <div class="panel-body">
@@ -55,13 +55,32 @@
         <div class="panel-heading">
           <h3 class="panel-title">
             {{ document.number }}
-            <a href="{% url 'returns:commodity_add' return.pk waybill.pk document.pk %}" class="btn btn-success btn-xs" role="button">Dodaj Towar</a>
+            <a href="{% url 'Returns:commodity_add' return.pk waybill.pk document.pk %}" class="btn btn-success btn-xs" role="button">Dodaj Towar</a>
           </h3>
         </div>
         <div class="panel-body">
-          {% for commodity in document.commodities %}
-            <p class="text-success"><span class="text-primary">{{ commodity.amount }}</span> {{ commodity }}</p>
-          {% endfor %}
+          {% if document.commodities %}
+          <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>TOWAR</th>
+                <th>ILOŚĆ</th>
+                <th>SERIAL</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for commodity in document.commodities %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><span class="text-success">{{ commodity }}</span></td>
+                <td><span class="text-primary">{{ commodity.amount }}</span></td>
+                <td><span class="text-success">{{ commodity.serial }}</span></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
