@@ -6,7 +6,7 @@
     <span>Z dnia:<br />{{ return.start_date }}</span><br />
     <strong>LP nr {{ waybill.number }}</strong><br />
     <strong>Dokument {{ document.number }}</strong><br />
-    <input type="button" value="DODAJ&#13;&#10;TOWAR" onClick="window.location.href='{% url 'Returns:SReturns:return' return.pk %}'"><br/>
+    <input type="button" value="DODAJ&#13;&#10;TOWAR" onClick="window.location.href='{% url 'Returns:SReturns:commodity_add' return.pk waybill.pk document.pk %}'"><br/>
 
     {% for commodity in commodities %}
       <span>{{ commodity.amount }} <- {{ commodity }}</span><br/>

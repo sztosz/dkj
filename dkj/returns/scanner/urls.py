@@ -18,4 +18,6 @@ urlpatterns = patterns(
         SCreateDocument.as_view(), name='document_create'),
     url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/(?P<document_pk>\d+)/$',
         SDocument.as_view(), name='document'),
+    url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/(?P<document_pk>\d+)/commodity/add$',
+        SAddCommodityTroughEAN.as_view(), name='commodity_add'),
 )

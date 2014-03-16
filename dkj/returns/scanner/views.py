@@ -51,7 +51,7 @@ class SCreateDocument(views.CreateDocument):
 
     def get_success_url(self):
         return reverse('Returns:SReturns:document', args=(self.object.return_id.pk, self.object.waybill.pk,
-                                                         self.object.pk))
+                                                          self.object.pk))
 
 
 class SDocument(views.DetailView):
@@ -66,3 +66,11 @@ class SDocument(views.DetailView):
         context['waybill'] = get_object_or_404(models.Waybill, pk=self.object.waybill.pk)
         context['return'] = get_object_or_404(models.Return, pk=self.object.return_id.pk)
         return context
+
+
+class SAddCommodityTroughEAN(views.AddCommodityTroughEAN):
+    template_name = 'returns/scanner/commodityindocument_form.html'
+
+    def get_success_url(self):
+        return reverse('Returns:SReturns:document', args=(self.object.return_id.pk, self.object.waybill.pk,
+                                                          self.object.document.pk))
