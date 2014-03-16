@@ -10,30 +10,34 @@ from .. import views
 from .. import models
 
 
-class SReturnsList(views.ReturnsList):
+class ScannerLoggedInMixin(views.LoggedInMixin):
+    redirect_url = '/Slogin/?next={0}'
+
+
+class SReturnsList(ScannerLoggedInMixin, views.ReturnsList):
     queryset = models.Return.objects.filter(completed=False).order_by('-start_date')
     template_name = 'returns/scanner/return_list.html'
 
 
-class SCreateReturn(views.CreateReturn):
+class SCreateReturn(ScannerLoggedInMixin, views.CreateReturn):
     template_name = 'returns/scanner/return_form.html'
 
     def get_success_url(self):
         return reverse('Returns:SReturns:return', args=(self.object.pk,))
 
 
-class SReturn(views.Return):
+class SReturn(ScannerLoggedInMixin, views.Return):
     template_name = 'returns/scanner/return.html'
 
 
-class SCreateWaybill(views.CreateWaybill):
+class SCreateWaybill(ScannerLoggedInMixin, views.CreateWaybill):
     template_name = 'returns/scanner/waybill_form.html'
 
     def get_success_url(self):
         return reverse('Returns:SReturns:waybill', args=(self.object.return_id.pk, self.object.pk))
 
 
-class SWaybill(views.DetailView):
+class SWaybill(ScannerLoggedInMixin, views.DetailView):
     model = models.Waybill
     pk_url_kwarg = 'waybill_pk'
     context_object_name = 'waybill'
@@ -46,7 +50,7 @@ class SWaybill(views.DetailView):
         return context
 
 
-class SCreateDocument(views.CreateDocument):
+class SCreateDocument(ScannerLoggedInMixin, views.CreateDocument):
     template_name = 'returns/scanner/document_form.html'
 
     def get_success_url(self):
@@ -54,7 +58,7 @@ class SCreateDocument(views.CreateDocument):
                                                           self.object.pk))
 
 
-class SDocument(views.DetailView):
+class SDocument(ScannerLoggedInMixin, views.DetailView):
     model = models.Document
     pk_url_kwarg = 'document_pk'
     context_object_name = 'document'
@@ -68,7 +72,7 @@ class SDocument(views.DetailView):
         return context
 
 
-class SAddCommodityTroughEAN(views.AddCommodityTroughEAN):
+class SAddCommodityTroughEAN(ScannerLoggedInMixin, views.AddCommodityTroughEAN):
     template_name = 'returns/scanner/commodityindocument_form.html'
 
     def get_success_url(self):

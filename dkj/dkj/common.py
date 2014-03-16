@@ -8,9 +8,11 @@ from django.shortcuts import redirect
 
 class LoggedInMixin(object):
     """ A mixin requiring a user to be logged in. """
+    redirect_url = '/login/?next={0}'
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return redirect('/login/?next={0}'.format(request.path))
+            return redirect(self.redirect_url.format(request.path))
         return super(LoggedInMixin, self).dispatch(request, *args, **kwargs)
 
 

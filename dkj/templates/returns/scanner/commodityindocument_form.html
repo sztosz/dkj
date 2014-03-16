@@ -7,13 +7,15 @@
       <fieldset>
         <legend>Dodaj Towar po EAN'ie</legend>
         {% for error in form.ean.errors %}
-        <strong>{{ error }}</strong>
+        <strong>{{ error }}</strong><br/>
         {% endfor %}
-        <label for="{{ form.ean.id_for_label }}">{{ form.ean.label }}</label>
-        <input type="text" maxlength="{{ form.ean.field.max_length }}" id="{{ form.ean.id_for_label }}" name="{{ form.ean.html_name }}" placeholder="{{ form.ean.field.help_text }}" {% if form.ean.value %}value="{{ form.ean.value }}"{% endif %}>
-        <label for="{{ form.amount.id_for_label }}">{{ form.amount.label }}</label>
-        <input type="text" maxlength="{{ form.amount.field.max_length }}" id="{{ form.amount.id_for_label }}" name="{{ form.amount.html_name }}" placeholder="{{ form.amount.field.help_text }}" {% if form.amount.value %}value="{{ form.amount.value }}"{% endif %}>
-        <button type="submit">Dodaj</button>
+        <label for="{{ form.ean.id_for_label }}">{{ form.ean.label }}</label><br/>
+        <input type="text" maxlength="{{ form.ean.field.max_length }}" id="{{ form.ean.id_for_label }}" name="{{ form.ean.html_name }}" placeholder="{{ form.ean.field.help_text }}" {% if form.ean.value %}value="{{ form.ean.value }}"{% endif %}><br/>
+        <label for="{{ form.amount.id_for_label }}">{{ form.amount.label }}</label><br/>
+        <input type="text" maxlength="{{ form.amount.field.max_length }}" id="{{ form.amount.id_for_label }}" name="{{ form.amount.html_name }}" placeholder="{{ form.amount.field.help_text }}" {% if form.amount.value %}value="{{ form.amount.value }}"{% endif %}><br/>
+        <label for="{{ form.serial.id_for_label }}">{{ form.serial.label }}</label><br/>
+        <input type="text" maxlength="{{ form.serial.field.max_length }}" id="{{ form.serial.id_for_label }}" name="{{ form.serial.html_name }}" placeholder="{{ form.serial.field.help_text }}" {% if form.serial.value %}value="{{ form.serial.value }}"{% endif %}><br/>
+        <button type="submit">Dodaj</button><br/>
       </fieldset>
     </form>
   </div>
