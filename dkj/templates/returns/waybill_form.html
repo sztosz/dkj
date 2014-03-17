@@ -12,8 +12,11 @@
         <fieldset>
           <legend>List przewozowy</legend>
           <div class="form-group {% if form.number.errors %}has-error{% endif %}">
+            {% for error in form.number.errors %}
+            <div class="col-lg-10 col-lg-offset-1 alert alert-danger"><strong>{{ error }}</strong></div>
+            {% endfor %}
             <label for="{{ form.number.id_for_label }}" class="col-lg-4 control-label">{{ form.number.label }}</label>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
               <input type="text" maxlength="{{ form.number.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}"
                      {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
 {#              {% if form.comment.errors %}#}
