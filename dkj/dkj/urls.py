@@ -20,6 +20,6 @@ urlpatterns = patterns('',
 
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/login.html'},
         name='login'),
-    url(r'^Slogin/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/Slogin.html'},
+    url(r'^Slogin/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/s_login.html'},
         name='Slogin'),
 )

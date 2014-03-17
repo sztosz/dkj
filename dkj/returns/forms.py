@@ -15,10 +15,18 @@ class CreateReturnForm(forms.ModelForm):
 
 
 class CreateWaybillForm(forms.ModelForm):
+    number = forms.CharField(max_length=11, label='List Przewozowy', help_text='Podaj 10 cyfr')
+
     class Meta:
         model = models.Waybill
         exclude = ('return_id',)
 
+    def clean_number(self):
+        number = self.cleaned_data['number']
+        number = ''.join([d for d in number if d.isdigit()])
+        if len(number) != 10:
+            raise forms.ValidationError('List musi się składać z dokładnie 10 cyfr')
+        return number
 
 class CreateDocumentForm(forms.ModelForm):
     class Meta:
