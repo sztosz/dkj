@@ -28,10 +28,42 @@ class CreateWaybillForm(forms.ModelForm):
             raise forms.ValidationError('List musi się składać z dokładnie 10 cyfr')
         return number
 
+
 class CreateDocumentForm(forms.ModelForm):
+    DOCUMENT_KINDS = (
+        ('FS', 'FS'),
+        ('MMW', 'MMW'),
+    )
+    kind = forms.ChoiceField(choices=DOCUMENT_KINDS, label='Rodzaj')
+    discriminant = forms.CharField(max_length=3, label='Wyróżnik')
+    number = forms.CharField(max_length=8, label='Numer')
+    year = forms.CharField(max_length=4, label='rok')
+
     class Meta:
         model = models.Document
-        exclude = ('waybill', 'return_id',)
+        exclude = ('waybill', 'return_id', 'number')
+
+    def clean_number(self):
+        number = self.cleaned_data['number']
+        try:
+            number = int(number)
+            return str(number)
+        except ValueError:
+            raise forms.ValidationError('Numer musi się składać z samych cyfr')
+
+    def clean_year(self):
+        year = self.cleaned_data['year']
+
+        try:
+            year = int(year)
+            return str(year)
+        except ValueError:
+            raise forms.ValidationError('Rok musi się składać z samych cyfr')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        cleaned_data['number'] = "{1}-{2}/{3}/{4}".format(cleaned_data['kind'], cleaned_data['discriminant'],
+                                                          cleaned_data['number'], cleaned_data['year'])
 
 
 class AddCommodityTroughEANForm(forms.ModelForm):
