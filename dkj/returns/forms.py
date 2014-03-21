@@ -41,7 +41,7 @@ class CreateDocumentForm(forms.ModelForm):
 
     class Meta:
         model = models.Document
-        exclude = ('waybill', 'return_id', 'number')
+        exclude = ('waybill', 'return_id', )
 
     def clean_number(self):
         number = self.cleaned_data['number']
@@ -62,8 +62,8 @@ class CreateDocumentForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        cleaned_data['number'] = "{1}-{2}/{3}/{4}".format(cleaned_data['kind'], cleaned_data['discriminant'],
-                                                          cleaned_data['number'], cleaned_data['year'])
+        self.cleaned_data['number'] = "{0}-{1}/{2}/{3}".format(cleaned_data['kind'], cleaned_data['discriminant'],
+                                                               cleaned_data['number'], cleaned_data['year'])
 
 
 class AddCommodityTroughEANForm(forms.ModelForm):
