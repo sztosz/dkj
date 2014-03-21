@@ -6,20 +6,24 @@
     {% csrf_token %}
       <fieldset>
         <legend>Dokument</legend>
-        <p>Podaj dokument:</p>
-        {% for error in form.carrier.errors %}
-          <p><strong>{{ error }}</strong></p>
+        {% for error in form.discriminant.errors %}
+          <p><strong>Wyróżnik. {{ error }}</strong></p>
+        {% endfor %}
+        {% for error in form.number.errors %}
+          <p><strong>Numer. {{ error }}</strong></p>
+        {% endfor %}
+        {% for error in form.year.errors %}
+          <p><strong>Rok. {{ error }}</strong></p>
         {% endfor %}
         <select id="{{ form.kind.id_for_label }}" name="{{ form.kind.html_name }}"><br/>
           {% for id, name in form.kind.field.choices %}
             <option value="{{ id }}">{{ name }}</option>
           {% endfor %}
         </select>
-        <input type="text" maxlength="{{ form.discriminant.field.max_length }}" id="{{ form.discriminant.id_for_label }}" name="{{ form.discriminant.html_name }}" {% if form.discriminant.value %}value="{{ form.discriminant.value }}"{% endif %}>
-        <input type="text" maxlength="{{ form.number.field.max_length }}" id="{{ form.number.id_for_label }}" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}" {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
-        <input type="text" maxlength="{{ form.year.field.max_length }}" id="{{ form.year.id_for_label }}" name="{{ form.year.html_name }}" placeholder="{{ form.year.field.help_text }}" {% if form.year.value %}value="{{ form.year.value }}"{% endif %}>
-{#        <label for="{{ form.number.id_for_label }}">{{ form.number.label }}</label><br/>#}
-{#        <input type="text" maxlength="{{ form.number.field.max_length }}" id="{{ form.number.id_for_label }}" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}" {% if form.number.value %}value="{{ form.number.value }}"{% endif %}><br/>#}
+        <input type="text" size="2" maxlength="{{ form.discriminant.field.max_length }}" id="{{ form.discriminant.id_for_label }}" name="{{ form.discriminant.html_name }}" {% if form.discriminant.value %}value="{{ form.discriminant.value }}"{% endif %}>
+        <input type="text" size="7" maxlength="{{ form.number.field.max_length }}" id="{{ form.number.id_for_label }}" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}" {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
+        <input type="text" size="3" maxlength="{{ form.year.field.max_length }}" id="{{ form.year.id_for_label }}" name="{{ form.year.html_name }}" placeholder="{{ form.year.field.help_text }}" {% if form.year.value %}value="{{ form.year.value }}"{% endif %}>
+        <br/>
         <button type="submit">Dodaj</button>
       </fieldset>
     </form>

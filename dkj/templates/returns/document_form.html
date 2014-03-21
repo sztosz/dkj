@@ -5,24 +5,51 @@
     <h1>Dodaj Dokument</h1>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-8">
     <div class="well">
       <form action="" method="post" class="form-horizontal">
       {% csrf_token %}
         <fieldset>
           <legend>Dokument</legend>
-          <div class="form-group {% if form.number.errors %}has-error{% endif %}">
-            <label for="{{ form.number.id_for_label }}" class="col-lg-4 control-label">{{ form.number.label }}</label>
-            <div class="col-lg-8">
-              <input type="text" maxlength="{{ form.number.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}"
-                     {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
-{#              {% if form.comment.errors %}#}
-{#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
-{#              {% endif %}#}
+            {% for error in form.discriminant.errors %}
+              <div class="alert alert-dismissable alert-danger">
+                <strong>Wyróżnik. {{ error }}</strong>
+              </div>
+            {% endfor %}
+            {% for error in form.number.errors %}
+              <div class="alert alert-dismissable alert-danger">
+                <strong>Numer. {{ error }}</strong>
+              </div>
+            {% endfor %}
+            {% for error in form.year.errors %}
+              <div class="alert alert-dismissable alert-danger">
+                <strong>Rok. {{ error }}</strong>
+              </div>
+            {% endfor %}
+          <div class="form-group {% if form.errors %}has-error{% endif %}">
+{#            <label for="{{ form.number.id_for_label }}" class="col-lg-4 control-label">{{ form.number.label }}</label>#}
+            <div class="col-lg-2">
+              <select class="form-control" id="{{ form.kind.id_for_label }}" name="{{ form.kind.html_name }}"><br/>
+              {% for id, name in form.kind.field.choices %}
+                <option value="{{ id }}">{{ name }}</option>
+              {% endfor %}
+              </select>
+            </div>
+            <div class="col-lg-2">
+              <input type="text" maxlength="{{ form.discriminant.field.max_length }}" class="form-control" id="{{ form.discriminant.id_for_label }}" name="{{ form.discriminant.html_name }}" placeholder="{{ form.discriminant.field.help_text }}"
+                     {% if form.discriminant.value %}value="{{ form.discriminant.value }}"{% endif %}>
+            </div>
+            <div class="col-lg-2">
+              <input type="text" maxlength="{{ form.number.field.max_length }}" class="form-control" id="{{ form.kind.id_for_label }}" name="{{ form.number.html_name }}" placeholder="{{ form.number.field.help_text }}"
+                       {% if form.number.value %}value="{{ form.number.value }}"{% endif %}>
+            </div>
+            <div class="col-lg-2">
+              <input type="text" maxlength="{{ form.year.field.max_length }}" class="form-control" id="{{ form.year.id_for_label }}" name="{{ form.year.html_name }}" placeholder="{{ form.year.field.help_text }}"
+                       {% if form.year.value %}value="{{ form.year.value }}"{% endif %}>
             </div>
           </div>
           <div class="form-group">
-            <div class="col-lg-8 col-lg-offset-4">
+            <div class="col-lg-8">
               <button type="submit" class="btn btn-primary">Dodaj</button>
               <button class="btn btn-default">Anuluj</button>
             </div>

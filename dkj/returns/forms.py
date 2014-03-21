@@ -34,10 +34,10 @@ class CreateDocumentForm(forms.ModelForm):
         ('FS', 'FS'),
         ('MMW', 'MMW'),
     )
-    kind = forms.ChoiceField(choices=DOCUMENT_KINDS, label='Rodzaj')
-    discriminant = forms.CharField(max_length=3, label='Wyróżnik')
-    number = forms.CharField(max_length=8, label='Numer')
-    year = forms.CharField(max_length=4, label='rok')
+    kind = forms.ChoiceField(choices=DOCUMENT_KINDS, label='Rodzaj', required=True)
+    discriminant = forms.CharField(max_length=3, label='Wyróżnik', help_text="np. 01S", required=True)
+    number = forms.CharField(max_length=8, label='Numer', help_text="8 cyfr", required=True)
+    year = forms.CharField(max_length=4, label='rok', help_text="rok", required=True)
 
     class Meta:
         model = models.Document
@@ -47,7 +47,7 @@ class CreateDocumentForm(forms.ModelForm):
         number = self.cleaned_data['number']
         try:
             number = int(number)
-            return str(number)
+            return str(number).zfill(8)
         except ValueError:
             raise forms.ValidationError('Numer musi się składać z samych cyfr')
 
@@ -62,8 +62,8 @@ class CreateDocumentForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        self.cleaned_data['number'] = "{0}-{1}/{2}/{3}".format(cleaned_data['kind'], cleaned_data['discriminant'],
-                                                               cleaned_data['number'], cleaned_data['year'])
+        self.cleaned_data['number'] = "{0}-{1}/{2}/{3}".format(cleaned_data.get('kind'), cleaned_data.get('discriminant'),
+                                                               cleaned_data.get('number'), cleaned_data.get('year'))
 
 
 class AddCommodityTroughEANForm(forms.ModelForm):
