@@ -22,4 +22,6 @@ urlpatterns = patterns('',
         name='login'),
     url(r'^Slogin/$', 'django.contrib.auth.views.login', {'template_name': 'dkj/s_login.html'},
         name='Slogin'),
+    url(r'^img/svg_barcode/(?P<ean>\d+)/$', 'dkj.common.sgv_ean_barcode', name='svg_barcode'),
+
 )

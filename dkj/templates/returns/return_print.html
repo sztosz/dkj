@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="charset=utf-8"/>
+  <meta http-equiv="Content-Language" content="pl-PL"/>
+  <meta name="author" content="Bartosz Nowak <sztosz['at']gmail['dot']com>"/>
+  <link href="/static/css/returns/commercial_return_screen.css" rel="stylesheet" media="screen">
+  <link href="/static/css/returns/commercial_return_print.css" rel="stylesheet" media="print">
+  <link href="/static/css/returns/commercial_return.css" rel="stylesheet" media="all">
+
+  <title>Zwrot Kontrolny</title>
+
+</head>
+<body>
+<div id="return">
+  <div id="return-header"><img alt="Logo Neonet" class="logo screen" src="/static/img/neonet.svg" height="30%" width="30%"/>
+    <!-- hCard microformat -->
+    <div class="vcard" id="company-address">
+      <div class="fn org"><strong>NEONET SA<br />Dział Kontroli Jakości</strong></div>
+      <div class="adr">
+        <div class="street-address">Ryszarda Chomicza 11-13A</div>
+        <!-- street-address -->
+        <div class="locality"><span class="postal-code">55-080</span> Nowa Wieś Wrocławska</div>
+
+      </div>
+      <!-- adr -->
+    <div id="sales-tax-reg-number">NIP: 895-00-21-311</div>
+    </div>
+    <!-- company-address vcard -->
+  </div>
+  <!-- #return-header -->
+  <div id="return-info">
+    <p id="doc-num">Zwrot Kontolny <strong>{{ return.return_number }}</strong></p>
+    <p id="carrier">Przewoźnik: <strong>{{ return.carrier.name }}</strong> {{ return.carrier_comment }}</p>
+    <p id="driver">Kierowca: <strong>{{ return.driver_name }}</strong></p>
+    <p id="plates">Nr Rej.: <strong>{{ return.car_plates }}</strong></p>
+    <p id="dates">Utworzony: {{ return.start_date }}</p>
+    <p id="user-data">Kontroler: {{ return.user.first_name }} {{ return.user.last_name }}</p>
+
+  </div>
+  <!-- #return-info -->
+  <table id="return-amount">
+    <thead>
+      <tr id="header_row">
+        <th class="index_th">#</th>
+        <th class="commodity_th">Towar</th>
+        <th class="amount_th">Ilość</th>
+        <th class="barcode_th">Kod Kreskowy</th>
+        <th class="waybill_th">List Przewozowy</th>
+        <th class="document_th">MMW/FS</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for c in commodities %}
+      <tr class="item">
+        <td class="item_l">{{ forloop.counter }}</td>
+        <td class="item_l">{{ c.commodity }}</td>
+        <td class="item_l">{{ c.amount }}</td>
+        <td class="item_l"><img src="{% url 'svg_barcode' c.commodity.ean %}"></td>
+        <td class="item_l">{{ c.waybill }}</td>
+        <td class="item_l">{{ c.document.number }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <!-- return-amount -->
+  <div id="controller-signature">
+    <h2>Podpis Kontrolera</h2>
+    <p><br /><br /><br />{{ commercial_return.user.first_name }} {{ commercial_return.user.last_name }}<br />
+      ...........................................<br /><br />
+      Data przekazania: ...........................................</p>
+  </div>
+  <!-- controler-signature -->
+  <div id="warehouseman-signature">
+    <h2>Podpis magazyniera</h2>
+    <p><br /><br /><br /><br />...........................................</p>
+  </div>
+  <!-- warehouseman-signature -->
+  <div id="comments"><strong>DOKUMENT TESTOWY TYLKO DO UŻYTKU WEWNĘTRZNEGO W DZIALE KONTROLI JAKOŚCI</strong></div>
+  <!-- comments -->
+</div>
+</body>
+</html>

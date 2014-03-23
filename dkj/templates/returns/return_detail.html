@@ -37,7 +37,10 @@
   <div class="panel panel-primary">
     <div class="panel-body">
       <a href="{% url 'Returns:waybill_create' return.pk %}" class="btn btn-primary btn-sm" role="button">Dodaj List przewozowy</a>
-      <a href="{% url 'Returns:csv' return.pk %}" class="btn btn-primary btn-sm pull-right" role="button">Eksport do CSV</a>
+      <div class="btn-group pull-right">
+        <a href="{% url 'Returns:csv' return.pk %}" class="btn btn-primary btn-sm " role="button">Eksport do CSV</a>
+        <a href="{% url 'Returns:return_print' return.pk %}" class="btn btn-primary btn-sm " role="button">Drukuj</a>
+      </div>
     </div>
   </div>
 

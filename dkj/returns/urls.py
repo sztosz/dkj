@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^S/', include('returns.scanner.urls', namespace='SReturns')),
     url(r'^create/$', CreateReturn.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', Return.as_view(), name='return'),
+    url(r'^(?P<pk>\d+)/print$', ReturnPrint.as_view(), name='return_print'),
     url(r'^(?P<return_pk>\d+)/waybill/create$', CreateWaybill.as_view(), name='waybill_create'),
     url(r'^(?P<return_pk>\d+)/waybill/(?P<waybill_pk>\d+)/document/create$',
         CreateDocument.as_view(), name='document_create'),

@@ -46,9 +46,19 @@ class Return(LoggedInMixin, DetailView):
                 document.commodities = models.CommodityInDocument.objects.filter(document=document.pk)
             waybill.documents = documents
         context['waybills'] = waybills
-        context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)  # TODO simplify this!
         # context['documents'] = models.Document.objects.filter(return_id=self.object)
         # context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
+        return context
+
+
+class ReturnPrint(LoggedInMixin, DetailView):
+    model = models.Return
+    template_name = 'returns/return_print.html'
+    context_object_name = 'return'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
         return context
 
 

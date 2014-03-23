@@ -4,6 +4,7 @@
 # @author: Bartosz Nowak sztosz@gmail.com
 
 from django.shortcuts import redirect
+from django.http import HttpResponse
 
 
 class LoggedInMixin(object):
@@ -66,3 +67,15 @@ class EanValidator():
         return self.valid
 
 
+def sgv_ean_barcode(request, ean=None):
+
+    validator = EanValidator()
+    if not validator.ean_valid(ean):
+        return redirect('/static/img/ean_error.svg')
+    else:
+        import barcode
+        response = HttpResponse(content_type='image/svg+xml')
+        options = {'module_height': 5, 'write_text': False}
+        svg = barcode.get_barcode_class('ean13')(ean)
+        response.write(svg.render(options))
+        return response
