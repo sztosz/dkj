@@ -12,6 +12,9 @@
       <span>{{ commodity.amount }} <- {{ commodity }}</span><br/>
     {% endfor %}
   </div>
-
+  <div class="container footer">
+    <input type="button" value="POWRÓT&#13;&#10;DO LISTU" onClick="window.location.href='{% url 'Returns:SReturns:waybill' return.pk waybill.pk %}'"><br/>
+    <input type="button" value="POWRÓT&#13;&#10;DO ZWROTU" onClick="window.location.href='{% url 'Returns:SReturns:return' return.pk %}'">
+  </div>
 
 {% endblock %}
