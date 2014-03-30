@@ -11,6 +11,9 @@
       <input type="button" value="{{ document }}" onClick="window.location.href='{% url 'Returns:SReturns:document' return.pk waybill.pk document.pk %}'"><br/>
     {% endfor %}
   </div>
+  <div class="container footer">
+  <input type="button" value="POWRÓT&#13;&#10;DO ZWROTU" onClick="window.location.href='{% url 'Returns:SReturns:return' return.pk %}'">
+  </div>
 
 
 {% endblock %}

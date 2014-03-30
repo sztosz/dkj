@@ -47,7 +47,7 @@ class Return(LoggedInMixin, DetailView):
             waybill.documents = documents
         context['waybills'] = waybills
         # context['documents'] = models.Document.objects.filter(return_id=self.object)
-        # context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
+        context['commodities'] = models.CommodityInDocument.objects.filter(return_id=self.object)
         return context
 
 

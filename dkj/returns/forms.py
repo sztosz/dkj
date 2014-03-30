@@ -62,8 +62,10 @@ class CreateDocumentForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        self.cleaned_data['number'] = "{0}-{1}/{2}/{3}".format(cleaned_data.get('kind'), cleaned_data.get('discriminant'),
-                                                               cleaned_data.get('number'), cleaned_data.get('year'))
+        self.cleaned_data['number'] = "{0}-{1}/{2}/{3}".format(cleaned_data.get('kind'),
+                                                               cleaned_data.get('discriminant'),
+                                                               cleaned_data.get('number'),
+                                                               cleaned_data.get('year')).upper()
 
 
 class AddCommodityTroughEANForm(forms.ModelForm):
