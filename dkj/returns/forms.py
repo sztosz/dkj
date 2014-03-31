@@ -35,7 +35,7 @@ class CreateDocumentForm(forms.ModelForm):
         ('MMW', 'MMW'),
     )
     kind = forms.ChoiceField(choices=DOCUMENT_KINDS, label='Rodzaj', required=True)
-    discriminant = forms.CharField(max_length=3, label='Wyróżnik', help_text="np. 01S", required=True)
+    discriminant = forms.CharField(max_length=4, label='Wyróżnik', help_text="np. 01S", required=True)
     number = forms.CharField(max_length=8, label='Numer', help_text="8 cyfr", required=True)
     year = forms.CharField(max_length=4, label='rok', help_text="rok", required=True)
 
@@ -56,6 +56,9 @@ class CreateDocumentForm(forms.ModelForm):
 
         try:
             year = int(year)
+            # TODO Tidy it up, it might get ugly
+            if year not in [2012, 2013, 2014, 2015, 2016]:
+                raise forms.ValidationError('Rok musi się zawierać w przedziale 2012-2016')
             return str(year)
         except ValueError:
             raise forms.ValidationError('Rok musi się składać z samych cyfr')
