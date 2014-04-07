@@ -25,10 +25,26 @@
             </div>
           </div>
           <div class="form-group {% if form.amount.errors %}has-error{% endif %}">
+            {% for error in form.amount.errors %}
+              <div class="col-lg-10 col-lg-offset-1 alert alert-danger"><strong>{{ error }}</strong></div>
+            {% endfor %}
             <label for="{{ form.amount.id_for_label }}" class="col-lg-4 control-label">{{ form.amount.label }}</label>
             <div class="col-lg-8">
               <input type="text" maxlength="{{ form.amount.field.max_length }}" class="form-control" id="id_commodity" name="{{ form.amount.html_name }}" placeholder="{{ form.amount.field.help_text }}"
                      {% if form.amount.value %}value="{{ form.amount.value }}"{% endif %}>
+{#              {% if form.comment.errors %}#}
+{#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
+{#              {% endif %}#}
+            </div>
+          </div>
+          <div class="form-group {% if form.serial.errors %}has-error{% endif %}">
+            {% for error in form.serial.errors %}
+              <div class="col-lg-10 col-lg-offset-1 alert alert-danger"><strong>{{ error }}</strong></div>
+            {% endfor %}
+            <label for="{{ form.serial.id_for_label }}" class="col-lg-4 control-label">{{ form.serial.label }}</label>
+            <div class="col-lg-8">
+              <input type="text" maxlength="{{ form.serial.field.max_length }}" class="form-control" id="id_serial" name="{{ form.serial.html_name }}" placeholder="{{ form.serial.field.help_text }}"
+                     {% if form.serial.value %}value="{{ form.serial.value }}"{% endif %}>
 {#              {% if form.comment.errors %}#}
 {#                <span class="glyphicon glyphicon-remove form-control-feedback"></span>#}
 {#              {% endif %}#}

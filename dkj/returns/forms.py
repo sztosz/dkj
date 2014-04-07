@@ -84,3 +84,16 @@ class AddCommodityTroughEANForm(forms.ModelForm):
         if not validator.ean_valid(ean):
             raise forms.ValidationError(validator.error)
         return ean
+
+    def clean_serial(self):
+        if self.cleaned_data['serial'] and self.cleaned_data.get('amount', 0) != 1:
+            raise forms.ValidationError("Jeżeli jest podany serial ilość musi się równać 1")
+        return self.cleaned_data['serial']
+
+    def clean_amount(self):
+        amount = self.cleaned_data['amount']
+        try:
+            int(amount)
+        except ValueError:
+            pass
+        return amount

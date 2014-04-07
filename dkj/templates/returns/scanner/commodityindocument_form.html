@@ -6,8 +6,8 @@
     {% csrf_token %}
       <fieldset>
         <legend>Dodaj Towar po EAN'ie</legend>
-        {% for error in form.ean.errors %}
-        <strong>{{ error }}</strong><br/>
+        {% for key, error in form.errors.items %}
+        <strong>{{ error.as_text }}</strong><br/>
         {% endfor %}
         <label for="{{ form.ean.id_for_label }}">{{ form.ean.label }}</label><br/>
         <input type="text" maxlength="{{ form.ean.field.max_length }}" id="{{ form.ean.id_for_label }}" name="{{ form.ean.html_name }}" placeholder="{{ form.ean.field.help_text }}" {% if form.ean.value %}value="{{ form.ean.value }}"{% endif %}><br/>

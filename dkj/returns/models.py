@@ -58,7 +58,7 @@ class CommodityInDocument(models.Model):
     document = models.ForeignKey(Document, verbose_name='Dokument', help_text='ID Dokumentu', null=True)
     commodity = models.ForeignKey(Commodity, verbose_name='Towar', help_text='Towar')
     amount = models.IntegerField(verbose_name='Ilość', help_text='Ilość')
-    serial = models.CharField(max_length=50, verbose_name='S/N', help_text='Towar', blank=True)
+    serial = models.CharField(max_length=50, verbose_name='S/N', help_text='Numer seryjny', blank=True)
 
     def __str__(self):
         return str(self.commodity)
