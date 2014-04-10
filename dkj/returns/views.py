@@ -8,7 +8,7 @@ import csv
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 
 from dkj.common import LoggedInMixin
 from . import models, forms
@@ -99,12 +99,28 @@ class AddCommodityTroughEAN(LoggedInMixin, CreateView):
     form_class = forms.AddCommodityTroughEANForm
 
     def form_valid(self, form):
+        # TODO Rewrite it so it's more redable and DRY
         obj = form.save(commit=False)
-        obj.return_id = get_object_or_404(models.Return, pk=self.kwargs['return_pk'])
-        obj.waybill = get_object_or_404(models.Waybill, pk=self.kwargs['waybill_pk'])
-        obj.document = get_object_or_404(models.Document, pk=self.kwargs['document_pk'])
-        obj.commodity = get_object_or_404(models.Commodity, ean=form.cleaned_data['ean'])
-        return super().form_valid(form)
+        return_id = get_object_or_404(models.Return, pk=self.kwargs['return_pk'])
+        waybill = get_object_or_404(models.Waybill, pk=self.kwargs['waybill_pk'])
+        document = get_object_or_404(models.Document, pk=self.kwargs['document_pk'])
+        commodity = get_object_or_404(models.Commodity, ean=form.cleaned_data['ean'])
+
+        obj.return_id = return_id
+        obj.waybill = waybill
+        obj.document = document
+        obj.commodity = commodity
+        if not obj.serial:
+            amount = obj.amount
+            try:
+                obj = self.model.objects.get(return_id=return_id, waybill=waybill, document=document,
+                                             commodity=commodity, serial='')
+                obj.amount += amount
+            except self.model.DoesNotExist:
+                pass
+        obj.save()
+        self.object = obj
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse('Returns:return', args=(self.kwargs['return_pk'],))
