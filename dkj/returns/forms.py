@@ -83,6 +83,8 @@ class AddCommodityTroughEANForm(forms.ModelForm):
         validator = EanValidator()
         if not validator.ean_valid(ean):
             raise forms.ValidationError(validator.error)
+        elif not models.Commodity.objects.filter(ean=ean):
+            raise forms.ValidationError('Brak towaru w bazie')
         return ean
 
     def clean_serial(self):
